@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      OAuth2
     </ion-title>
+    <ion-icon (click)="logOut()" class="ion-padding pointer" slot="end" name="log-out-outline" size="large"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">OAuth2</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-card *ngIf="isLoggedIn">
+      <ion-card-header *ngIf="userInfo && userInfo.info.name">Welcome {{userInfo.info.name}}</ion-card-header>
+      <ion-card-header *ngIf="userInfo && userInfo.info.email">{{userInfo.info.email}}</ion-card-header>
+      <ion-card-header *ngIf="userInfo && userInfo.info.picture"><img style="width: 20px; height: 20px" src="{{userInfo.info.picture}}"></ion-card-header>
+    </ion-card>
+    <ion-button (click)="getEmails()">List Emails</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let snippet of emailSnippets">
+        <ion-label>{{snippet}}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>
