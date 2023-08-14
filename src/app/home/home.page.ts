@@ -41,15 +41,8 @@ export class HomePage {
         this.emailIdResponse = ids;
         this.transformResponseToId();
         this.emailResponses = [];
-        /*for (let i of this.emailIds) {
-          this.googleApi.getMail(sub, i).subscribe((mail) => {
-            this.emailResponses.push(mail);
-          });
-        }*/
         this.fetchEmailResponses(sub);
         console.log(this.emailResponses);
-        // const snippets: string[] = this.emailResponses.map(response => response.snippet);
-        // console.log(snippets);
       }, (error) => {
         console.log(error);
         return;
@@ -79,14 +72,4 @@ export class HomePage {
       }
     );
   }
-
-  /*transformEmailToSnippet(): void {
-    if (this.emailResponses.length != 0) {
-      console.log("before")
-      this.emailSnippets = this.emailResponses.map(response => response.snippet);
-      console.log("after")
-    } else {
-      return;
-    }
-  }*/
 }
