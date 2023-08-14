@@ -25,3 +25,12 @@
 #container a {
   text-decoration: none;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.email-list {
+  max-height: 275px;
+  overflow-y: auto;
+}

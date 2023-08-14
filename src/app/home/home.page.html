@@ -17,14 +17,20 @@
   <div id="container">
     <ion-card *ngIf="isLoggedIn">
       <ion-card-header *ngIf="userInfo && userInfo.info.name">Welcome {{userInfo.info.name}}</ion-card-header>
-      <ion-card-header *ngIf="userInfo && userInfo.info.email">{{userInfo.info.email}}</ion-card-header>
-      <ion-card-header *ngIf="userInfo && userInfo.info.picture"><img style="width: 20px; height: 20px" src="{{userInfo.info.picture}}"></ion-card-header>
+      <ion-card-header *ngIf="userInfo && userInfo.info.email">{{userInfo.info.email}}
+      </ion-card-header>
+      <ion-card-header>
+        <img *ngIf="userInfo && userInfo.info.picture" style="width: 20px; height: 20px"
+             src="{{userInfo.info.picture}}"/>
+      </ion-card-header>
     </ion-card>
     <ion-button (click)="getEmails()">List Emails</ion-button>
-    <ion-list>
-      <ion-item *ngFor="let snippet of emailSnippets">
-        <ion-label>{{snippet}}</ion-label>
-      </ion-item>
-    </ion-list>
+    <div class="ion-padding">
+      <ion-list class="ion-padding email-list">
+        <ion-item *ngFor="let snippet of emailSnippets">
+          <ion-label>{{snippet}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 </ion-content>

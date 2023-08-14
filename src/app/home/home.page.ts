@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UserInfo} from '../models/user-info';
 import {GoogleApiService} from '../services/google-api.service';
 import {EmailIdResponse} from '../models/email-id-response';
+import {forkJoin, map} from 'rxjs';
 import {EmailResponse} from '../models/email-response';
 
 @Component({
@@ -40,9 +41,15 @@ export class HomePage {
         this.emailIdResponse = ids;
         this.transformResponseToId();
         this.emailResponses = [];
-
+        /*for (let i of this.emailIds) {
+          this.googleApi.getMail(sub, i).subscribe((mail) => {
+            this.emailResponses.push(mail);
+          });
+        }*/
+        this.fetchEmailResponses(sub);
         console.log(this.emailResponses);
-
+        // const snippets: string[] = this.emailResponses.map(response => response.snippet);
+        // console.log(snippets);
       }, (error) => {
         console.log(error);
         return;
@@ -56,4 +63,30 @@ export class HomePage {
       return;
     }
   }
+
+  fetchEmailResponses(sub: string) {
+    const emailResponseObservables = this.emailIds.map(id => this.googleApi.getMail(sub, id));
+
+    forkJoin(emailResponseObservables).subscribe(
+      emailResponses => {
+        this.emailResponses = emailResponses;
+        console.log(this.emailResponses);
+        this.emailSnippets = emailResponses.map(response => response.snippet);
+        console.log(this.emailSnippets);
+      },
+      error => {
+        console.error("Error fetching email responses:", error);
+      }
+    );
+  }
+
+  /*transformEmailToSnippet(): void {
+    if (this.emailResponses.length != 0) {
+      console.log("before")
+      this.emailSnippets = this.emailResponses.map(response => response.snippet);
+      console.log("after")
+    } else {
+      return;
+    }
+  }*/
 }
