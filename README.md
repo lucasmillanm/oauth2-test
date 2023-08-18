@@ -71,3 +71,7 @@ Select:
 ## Adapt Project
 - Go to google-api.service.ts
 - Change clientID to the copied clientId 
+
+## Help
+https://www.youtube.com/watch?v=QV5YtczsorY
+https://www.youtube.com/watch?v=9s6Vc6Xdgh4
